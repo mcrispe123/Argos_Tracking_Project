@@ -16,17 +16,19 @@ the_box = {
     'x_max' : 34.50,
     'y_max' : -75.00
 }
-
+ 
 #Create a variable pointing to the data file
 file_name = 'data/raw/Satellite tracking of black-capped petrels 2019-argos.csv'
 
 #Read the contents of the file into a list of lines
-with open(file_name,'r') as f:
+f = open(file_name,'r')
+#read the headerline
+headerLine = f.readline()
     #Read contents of file into a list
-	line_list = f.readlines()
+lineString = f.readline()
 
 #Pretend we read one line of data from the file
-for lineString in line_list[1:]:
+while lineString != "":
 
     # Use the split command to parse the items in lineString into a list object
     line_data = lineString.split(',')
@@ -49,4 +51,8 @@ for lineString in line_list[1:]:
         print(f'Record {event_id}: {tag_id} was IN the box at {timestamp}')
     else:
         print(f'Record {event_id}: {tag_id} was NOT IN the box at {timestamp}')
+    # Move to the next line
+    lineString = f.readline()
 
+#Close the file
+f.close()
